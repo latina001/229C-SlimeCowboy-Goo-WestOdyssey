@@ -121,6 +121,7 @@ NavMeshSettings:
   m_NavMeshData: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &4163829
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +498,8 @@ PrefabInstance:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1 &141194488
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,11 +728,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!4 &253380446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4535793208349402364, guid: 0682f38143daf1f40afaa10a7f516485, type: 3}
   m_PrefabInstance: {fileID: 1062950728}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -1098,6 +1104,7 @@ MeshFilter:
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &341692491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,6 +1136,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1603975893}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -1247,6 +1256,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 935593013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &387484513
@@ -1661,6 +1671,8 @@ Transform:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1 &496996759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,6 +2011,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &556281696
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2143,6 +2156,8 @@ PrefabInstance:
       addedObject: {fileID: 1776573703}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fcd3676979cebe479ee0255199dc8b0, type: 3}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -2396,6 +2411,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &598015839
@@ -2819,6 +2835,8 @@ Transform:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1 &744402396
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,6 +2951,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!4 &764615694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 334086230510956019, guid: 217a375a845b9924ba290cadd2dde112, type: 3}
@@ -3015,6 +3034,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 548787928738109690, guid: 2fcd3676979cebe479ee0255199dc8b0, type: 3}
   m_PrefabInstance: {fileID: 421207671}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -3549,6 +3570,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &914244934
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3621,6 +3643,8 @@ PrefabInstance:
       addedObject: {fileID: 228439883}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 217a375a845b9924ba290cadd2dde112, type: 3}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -4391,6 +4415,7 @@ MeshFilter:
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &1010450000
 GameObject:
   m_ObjectHideFlags: 0
@@ -4801,6 +4826,8 @@ PrefabInstance:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1 &1222197828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4915,6 +4942,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222197828}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &1253544330
@@ -5179,6 +5207,8 @@ Transform:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1 &1318995280
 GameObject:
   m_ObjectHideFlags: 0
@@ -5291,6 +5321,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 935593013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!4 &1331905317 stripped
@@ -5600,6 +5631,8 @@ Transform:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1 &1465694396
 GameObject:
   m_ObjectHideFlags: 0
@@ -5714,6 +5747,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1465694396}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1 &1478141605
@@ -5865,6 +5899,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 36abc95f2d037164d839823f96ff9136, type: 3}
   m_PrefabInstance: {fileID: 1095069435}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -7031,6 +7067,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1001 &1814012408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7247,6 +7284,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 723506418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -7876,6 +7915,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!1 &2000156546
 GameObject:
   m_ObjectHideFlags: 0
@@ -7912,6 +7952,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4649760456550405131, guid: eb1134e33d1244c4b809196e44bac7cc, type: 3}
   m_PrefabInstance: {fileID: 673129583}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -8030,6 +8072,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054331067}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &2056829907
@@ -8161,6 +8204,8 @@ Transform:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1 &2088865063
 GameObject:
   m_ObjectHideFlags: 0
@@ -8275,6 +8320,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!4 &2092730531 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 334086230510956019, guid: 217a375a845b9924ba290cadd2dde112, type: 3}
@@ -8320,6 +8366,8 @@ Transform:
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 --- !u!1001 &4828162400162163180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8338,10 +8386,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     - target: {fileID: 3584621010462919173, guid: 064fc26f4e346ca4b9aacb7fdfb01c7f, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 2b2ca1dff8d6e334fbd6aa93a29aa80d, type: 2}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
@@ -8405,8 +8456,11 @@ SceneRoots:
   - {fileID: 935593013}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 1010450001}
   - {fileID: 1102292060}
+=======
+>>>>>>> parent of 779cef9 (object-level-2)
 =======
 >>>>>>> parent of 779cef9 (object-level-2)
 =======
