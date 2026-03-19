@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 47429dcecd0540a4186d1850d6826423
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 250786
+  packageName: Low Poly Rock Generator NEON3D
+  packageVersion: 1.0
+  assetPath: Assets/Rock Generator_Neon3D/Scripts/RockGenerator.cs
+  uploadId: 586808
