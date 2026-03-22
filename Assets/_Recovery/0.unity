@@ -467,8 +467,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593489277}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20478162, y: -0.03800645, z: 0.008017315, w: 0.97803676}
-  m_LocalPosition: {x: -0.12983513, y: 3.6710618, z: -5.0370684}
+  m_LocalRotation: {x: 0.11937261, y: -0.074237846, z: 0.009023278, w: 0.9900291}
+  m_LocalPosition: {x: 0.07459879, y: 3.4800699, z: -6.723255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   moveSpeed: 6
   sprintMultiplier: 2
   gravity: -20
-  jumpHeight: 3
+  jumpHeight: 4
   playerCamera: {fileID: 593489281}
   mouseSensitivity: 0.08
   minPitch: -80
