@@ -11,8 +11,8 @@ public class SimpleFPS_NewInput : MonoBehaviour
     [SerializeField] private float jumpHeight = 1.5f;
 
     [Header("Slippery Settings")]
-    [SerializeField] private float normalTraction = 15f;   // แรงเสียดทานพื้นปกติ (หยุดกึก)
-    [SerializeField] private float iceTraction = 1.5f;     // แรงเสียดทานพื้นน้ำแข็ง (ไถล)
+    [SerializeField] private float normalTraction = 15f;
+    [SerializeField] private float iceTraction = 1.5f;
 
     [Header("Look Settings")]
     [SerializeField] private Camera playerCamera;
@@ -20,8 +20,11 @@ public class SimpleFPS_NewInput : MonoBehaviour
     [SerializeField] private float minPitch = -80f;
     [SerializeField] private float maxPitch = 80f;
 
+    [Header("Respawn Settings")]
+    [SerializeField] private Transform respawnPoint; // ? ลากจุดเกิดมาใส่
+
     private CharacterController controller;
-    private Vector3 currentHorizontalVelocity; // เก็บความเร็วแนวราบเพื่อทำระบบแรงเฉื่อย
+    private Vector3 currentHorizontalVelocity;
     private float verticalVelocity;
     private float cameraPitch = 0f;
     private float cameraYaw = 0f;
@@ -37,6 +40,12 @@ public class SimpleFPS_NewInput : MonoBehaviour
     void Update()
     {
         if (Keyboard.current == null || Mouse.current == null) return;
+
+        // ? กด R เพื่อ Respawn
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            Respawn();
+        }
 
         HandleMouseLook();
         HandleMovement();
@@ -59,10 +68,8 @@ public class SimpleFPS_NewInput : MonoBehaviour
     {
         var kb = Keyboard.current;
 
-        // 1. เช็กพื้นว่าลื่นไหม โดยใช้ Raycast ยิงลงไปที่เท้า
         CheckGroundType();
 
-        // 2. รับ Input
         Vector2 input = Vector2.zero;
         if (kb.wKey.isPressed) input.y += 1f;
         if (kb.sKey.isPressed) input.y -= 1f;
@@ -72,22 +79,24 @@ public class SimpleFPS_NewInput : MonoBehaviour
         Vector3 moveDir = (transform.forward * input.y) + (transform.right * input.x);
         if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
 
-        // 3. คำนวณความเร็วเป้าหมาย
         float targetSpeed = input.sqrMagnitude > 0.01f ? moveSpeed : 0f;
-        if (kb[Key.LeftShift].isPressed && targetSpeed > 0) targetSpeed *= sprintMultiplier;
+        if (kb[Key.LeftShift].isPressed && targetSpeed > 0)
+            targetSpeed *= sprintMultiplier;
 
         Vector3 targetVelocity = moveDir * targetSpeed;
 
-        // 4. เลือกว่าจะใช้แรงเสียดทานเท่าไหร่ (ถ้าอยู่บนน้ำแข็งจะใช้น้อยลง)
         float currentTraction = isOnIce ? iceTraction : normalTraction;
 
-        // 5. ใช้ Lerp เพื่อขยับความเร็วปัจจุบันไปหาเป้าหมาย (ทำให้เกิดแรงเฉื่อย)
-        currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetVelocity, currentTraction * Time.deltaTime);
+        currentHorizontalVelocity = Vector3.Lerp(
+            currentHorizontalVelocity,
+            targetVelocity,
+            currentTraction * Time.deltaTime
+        );
 
-        // 6. จัดการแรงโน้มถ่วง
         if (controller.isGrounded)
         {
             verticalVelocity = -2f;
+
             if (kb[Key.Space].wasPressedThisFrame)
                 verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -96,24 +105,41 @@ public class SimpleFPS_NewInput : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
         }
 
-        // 7. เคลื่อนที่
         Vector3 finalMove = currentHorizontalVelocity;
         finalMove.y = verticalVelocity;
+
         controller.Move(finalMove * Time.deltaTime);
     }
 
     void CheckGroundType()
     {
         RaycastHit hit;
-        // ยิงลำแสงลงไปข้างล่างระยะ 1.5 เมตร
+
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.5f))
-        {
-            // ถ้าชนวัตถุที่มี Tag ว่า Ice
             isOnIce = hit.collider.CompareTag("Ice");
-        }
         else
-        {
             isOnIce = false;
+    }
+
+    // ??? ระบบ Respawn ???
+    void Respawn()
+    {
+        if (respawnPoint == null)
+        {
+            Debug.Log("No Respawn Point assigned!");
+            return;
         }
+
+        // ปิด controller ชั่วคราวก่อนย้ายตำแหน่ง
+        controller.enabled = false;
+
+        transform.position = respawnPoint.position;
+        transform.rotation = respawnPoint.rotation;
+
+        // รีเซตความเร็วทั้งหมด
+        currentHorizontalVelocity = Vector3.zero;
+        verticalVelocity = 0f;
+
+        controller.enabled = true;
     }
 }
