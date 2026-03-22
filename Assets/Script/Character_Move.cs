@@ -6,14 +6,15 @@ using UnityEngine.InputSystem;
 public class Character_Move : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] float moveSpeed = 3.5f;
-    [SerializeField] float sprintMultiplier = 1.8f;
-    [SerializeField] float gravity = -9.81f;
-    [SerializeField] float jumpHeight = 1.5f;
+    [SerializeField] float moveSpeed = 5f; // เพิ่มความเร็วพื้นฐานนิดหน่อย
+    [SerializeField] float sprintMultiplier = 1.6f;
+    [SerializeField] float gravity = -25f; // ปรับ Gravity ให้หนักขึ้นเพื่อให้โดดแล้วดูมีน้ำหนัก (ไม่ลอย)
+    [SerializeField] float jumpHeight = 2.5f;
 
-    [Header("Camera")]
+    [Header("Camera Smoothing")]
     [SerializeField] Camera playerCamera;
-    [SerializeField] float mouseSensitivity = 0.1f;
+    [SerializeField] float mouseSensitivity = 0.15f;
+    [SerializeField] float smoothTime = 0.05f; // ยิ่งน้อยยิ่งตอบสนองไว ยิ่งมากยิ่งนุ่ม
     [SerializeField] float minPitch = -80f;
     [SerializeField] float maxPitch = 80f;
 
@@ -28,10 +29,15 @@ public class Character_Move : MonoBehaviour
 
     Vector3 velocity;
     Vector3 externalForce;
-
     float verticalVelocity;
+
+    // ตัวแปรสำหรับ Camera Smoothing
     float pitch;
     float yaw;
+    float currentPitch;
+    float currentYaw;
+    float pitchVelocity;
+    float yawVelocity;
 
     void Start()
     {
@@ -39,111 +45,116 @@ public class Character_Move : MonoBehaviour
         animator = GetComponent<Animator>();
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        // เริ่มต้นค่าพิกัดมุมจาก Rotation ปัจจุบัน
         yaw = transform.eulerAngles.y;
+        currentYaw = yaw;
     }
 
     void Update()
     {
-        if (Keyboard.current == null) return;
+        if (Keyboard.current == null || Mouse.current == null) return;
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
             Respawn();
 
-        Look();
-        Move();
+        LookSmooth();
+        MoveCorrected();
     }
 
-    void Look()
+    void LookSmooth()
     {
-        Vector2 mouse = Mouse.current.delta.ReadValue();
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
 
-        yaw += mouse.x * mouseSensitivity;
-        pitch = Mathf.Clamp(
-            pitch - mouse.y * mouseSensitivity,
-            minPitch,
-            maxPitch
-        );
+        // คำนวณเป้าหมาย (Target)
+        yaw += mouseDelta.x * mouseSensitivity;
+        pitch -= mouseDelta.y * mouseSensitivity;
+        pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
-        transform.rotation = Quaternion.Euler(0, yaw, 0);
+        // ใช้ SmoothDamp เพื่อให้การหันนุ่มนวลขึ้น
+        currentYaw = Mathf.SmoothDampAngle(currentYaw, yaw, ref yawVelocity, smoothTime);
+        currentPitch = Mathf.SmoothDamp(currentPitch, pitch, ref pitchVelocity, smoothTime);
+
+        transform.rotation = Quaternion.Euler(0, currentYaw, 0);
 
         if (playerCamera != null)
-            playerCamera.transform.localRotation =
-                Quaternion.Euler(pitch, 0, 0);
+            playerCamera.transform.localRotation = Quaternion.Euler(currentPitch, 0, 0);
     }
 
-    void Move()
+    void MoveCorrected()
     {
         var kb = Keyboard.current;
 
+        // 1. รับ Input
         Vector2 input = Vector2.zero;
         if (kb.wKey.isPressed) input.y += 1;
         if (kb.sKey.isPressed) input.y -= 1;
         if (kb.dKey.isPressed) input.x += 1;
         if (kb.aKey.isPressed) input.x -= 1;
 
-        Vector3 move =
-            transform.forward * input.y +
-            transform.right * input.x;
+        // 2. คำนวณทิศทางเดิน (Horizontal)
+        Vector3 moveDir = (transform.forward * input.y + transform.right * input.x).normalized;
 
-        bool isWalking = input.magnitude > 0.1f;
+        bool isWalking = input.sqrMagnitude > 0.01f;
         bool isRunning = isWalking && kb[Key.LeftShift].isPressed;
 
-        float speed = moveSpeed;
-        if (isRunning) speed *= sprintMultiplier;
+        float targetSpeed = isRunning ? moveSpeed * sprintMultiplier : moveSpeed;
+        velocity = moveDir * targetSpeed;
 
-        velocity = move.normalized * speed;
-
-        // Gravity + Jump
+        // 3. ระบบกระโดดและแรงโน้มถ่วง (Vertical) - แก้ไขบั๊กคูณ deltaTime ซ้ำซ้อน
         if (controller.isGrounded)
         {
-            verticalVelocity = -2f;
+            // ให้มีแรงกดลงพื้นเล็กน้อยเพื่อให้ IsGrounded เสถียร
+            if (verticalVelocity < 0) verticalVelocity = -2f;
 
             if (kb.spaceKey.wasPressedThisFrame)
-                verticalVelocity =
-                    Mathf.Sqrt(jumpHeight * -2f * gravity);
+            {
+                // สูตรฟิสิกส์: v = sqrt(h * -2 * g)
+                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
         }
         else
         {
+            // แรงโน้มถ่วงสะสม (คูณ deltaTime 1 ครั้ง)
             verticalVelocity += gravity * Time.deltaTime;
         }
 
-        Vector3 finalMove = velocity + externalForce;
-        finalMove.y = verticalVelocity;
+        // 4. ผสมแรงและสั่งเคลื่อนที่
+        // แยกส่วน Horizontal และ Vertical เพื่อคูณ deltaTime ให้ถูกต้อง
+        Vector3 finalMove = (velocity + externalForce) * Time.deltaTime;
+        finalMove.y = verticalVelocity * Time.deltaTime; // verticalVelocity มี deltaTime มาแล้ว 1 รอบจากข้างบน รวมเป็น 2 รอบพอดีสำหรับระยะทาง
 
-        controller.Move(finalMove * Time.deltaTime);
+        controller.Move(finalMove);
 
-        // Knockback decay
-        externalForce = Vector3.Lerp(
-            externalForce,
-            Vector3.zero,
-            knockbackDecay * Time.deltaTime
-        );
+        // 5. Knockback decay
+        externalForce = Vector3.Lerp(externalForce, Vector3.zero, knockbackDecay * Time.deltaTime);
 
-        // ⭐ Animation (แบบเก่า ชัด ๆ)
+        // 6. Animations
         animator.SetBool("IsWalking", isWalking);
         animator.SetBool("IsRunning", isRunning);
         animator.SetBool("Grounded", controller.isGrounded);
     }
 
-    // ===== Knockback =====
     public void ApplyKnockback(Vector3 force)
     {
         externalForce = force;
     }
 
-    // ===== Respawn =====
     void Respawn()
     {
         if (respawnPoint == null) return;
-
         controller.enabled = false;
-
         transform.position = respawnPoint.position;
         transform.rotation = respawnPoint.rotation;
 
+        // Reset ค่าทางฟิสิกส์และกล้อง
         velocity = Vector3.zero;
         externalForce = Vector3.zero;
         verticalVelocity = 0f;
+        yaw = respawnPoint.eulerAngles.y;
+        currentYaw = yaw;
+        pitch = 0;
+        currentPitch = 0;
 
         controller.enabled = true;
     }
