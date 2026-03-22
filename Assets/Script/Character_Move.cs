@@ -8,14 +8,14 @@ public class Character_Move : MonoBehaviour
     [Header("Movement & Traction")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float sprintMultiplier = 1.6f;
-    [SerializeField] float normalTraction = 12f; // ความหนืดพื้นปกติ
-    [SerializeField] float iceTraction = 2f;    // ความหนืดพื้นน้ำแข็ง
-    public bool isOnIce = false;             // ติ๊กเพื่อทดสอบความลื่น
+    [SerializeField] float normalTraction = 12f;
+    [SerializeField] float iceTraction = 2f;
+    private bool isOnIce = false; // ระบบจะเปลี่ยนค่านี้เองเมื่อเจอ Tag "Ice"
 
     [Header("Jump Settings")]
     [SerializeField] float gravity = -30f;
     [SerializeField] float jumpHeight = 2.5f;
-    [SerializeField] float coyoteTime = 0.15f; // เวลาที่ยอมให้กดโดดได้แม้เท้าหลุดจากพื้น (วินาที)
+    [SerializeField] float coyoteTime = 0.15f;
 
     [Header("Camera Smoothing")]
     [SerializeField] Camera playerCamera;
@@ -34,9 +34,8 @@ public class Character_Move : MonoBehaviour
     Vector3 currentHorizontalVelocity;
     Vector3 externalForce;
     float verticalVelocity;
-    float jumpTimer; // ตัวนับเวลาสำหรับ Coyote Time
+    float jumpTimer;
 
-    // Camera Variables
     float pitch, yaw, currentPitch, currentYaw, pitchVelocity, yawVelocity;
 
     void Start()
@@ -51,11 +50,24 @@ public class Character_Move : MonoBehaviour
     void Update()
     {
         if (Keyboard.current == null || Mouse.current == null) return;
-
         if (Keyboard.current.rKey.wasPressedThisFrame) Respawn();
 
         LookSmooth();
         MoveCorrected();
+    }
+
+    //  ส่วนที่เพิ่มเข้ามา: ตรวจสอบ Tag ของพื้นผิวที่เหยียบ
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // ถ้าวัตถุที่เท้าเหยียบมี Tag ว่า "Ice"
+        if (hit.gameObject.CompareTag("Ice"))
+        {
+            isOnIce = true;
+        }
+        else
+        {
+            isOnIce = false;
+        }
     }
 
     void LookSmooth()
@@ -76,19 +88,21 @@ public class Character_Move : MonoBehaviour
     {
         var kb = Keyboard.current;
 
-        // 1. จัดการระบบ Grounded และ Coyote Time
+        // 1. Grounded & Coyote Time
         if (controller.isGrounded)
         {
-            jumpTimer = coyoteTime; // รีเซ็ตเวลาโควตากระโดดเมื่อแตะพื้น
+            jumpTimer = coyoteTime;
             if (verticalVelocity < 0) verticalVelocity = -2f;
         }
         else
         {
-            jumpTimer -= Time.deltaTime; // ลดเวลาโควตาลงเมื่อลอยอยู่กลางอากาศ
+            jumpTimer -= Time.deltaTime;
             verticalVelocity += gravity * Time.deltaTime;
+            // ถ้าลอยอยู่กลางอากาศ ไม่ควรติดสถานะน้ำแข็ง (เลือกเปิด/ปิดได้ตามดีไซน์)
+            isOnIce = false;
         }
 
-        // 2. รับ Input และคำนวณทิศทาง
+        // 2. Input
         Vector2 input = Vector2.zero;
         if (kb.wKey.isPressed) input.y += 1;
         if (kb.sKey.isPressed) input.y -= 1;
@@ -100,27 +114,25 @@ public class Character_Move : MonoBehaviour
         float speed = isWalking ? moveSpeed : 0f;
         if (speed > 0 && kb[Key.LeftShift].isPressed) speed *= sprintMultiplier;
 
-        // 3. ระบบ Traction (ลื่น/หนืด)
+        // 3. Traction Logic (สลับความลื่นตาม isOnIce)
         Vector3 targetVelocity = moveDir * speed;
         float traction = isOnIce ? iceTraction : normalTraction;
         currentHorizontalVelocity = Vector3.Lerp(currentHorizontalVelocity, targetVelocity, traction * Time.deltaTime);
 
-        // 4. การกระโดด (ใช้ jumpTimer แทน isGrounded ตรงๆ)
+        // 4. Jump
         if (kb.spaceKey.wasPressedThisFrame && jumpTimer > 0)
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            jumpTimer = 0; // ใช้โควตาไปแล้ว รีเซ็ตเป็น 0 ทันที
+            jumpTimer = 0;
         }
 
-        // 5. ผสมแรงและสั่งเคลื่อนที่
+        // 5. Final Move
         Vector3 finalMove = (currentHorizontalVelocity + externalForce) * Time.deltaTime;
         finalMove.y = verticalVelocity * Time.deltaTime;
-
         controller.Move(finalMove);
 
-        // 6. ส่วนเสริมอื่นๆ
+        // 6. Feedback
         externalForce = Vector3.Lerp(externalForce, Vector3.zero, knockbackDecay * Time.deltaTime);
-
         animator.SetBool("IsWalking", isWalking);
         animator.SetBool("IsRunning", isWalking && kb[Key.LeftShift].isPressed);
         animator.SetBool("Grounded", controller.isGrounded);
@@ -134,15 +146,8 @@ public class Character_Move : MonoBehaviour
         controller.enabled = false;
         transform.position = respawnPoint.position;
         transform.rotation = respawnPoint.rotation;
-
         currentHorizontalVelocity = Vector3.zero;
-        externalForce = Vector3.zero;
         verticalVelocity = 0f;
-        yaw = respawnPoint.eulerAngles.y;
-        currentYaw = yaw;
-        pitch = 0;
-        currentPitch = 0;
-
         controller.enabled = true;
     }
 }
