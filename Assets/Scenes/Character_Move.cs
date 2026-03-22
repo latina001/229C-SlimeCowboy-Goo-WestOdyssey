@@ -21,7 +21,10 @@ public class Character_Move : MonoBehaviour
     [SerializeField] private float maxPitch = 80f;
 
     [Header("Respawn Settings")]
-    [SerializeField] private Transform respawnPoint; // ⭐ ลากจุดเกิดมาใส่
+    [SerializeField] private Transform respawnPoint;
+
+    [Header("Knockback Settings")]
+    [SerializeField] private float knockbackDecay = 8f;
 
     private CharacterController controller;
     private Vector3 currentHorizontalVelocity;
@@ -29,6 +32,9 @@ public class Character_Move : MonoBehaviour
     private float cameraPitch = 0f;
     private float cameraYaw = 0f;
     private bool isOnIce = false;
+
+    // ⭐ แรงที่โดนผลัก
+    private Vector3 externalForce;
 
     void Start()
     {
@@ -41,11 +47,8 @@ public class Character_Move : MonoBehaviour
     {
         if (Keyboard.current == null || Mouse.current == null) return;
 
-        // ⭐ กด R เพื่อ Respawn
         if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
             Respawn();
-        }
 
         HandleMouseLook();
         HandleMovement();
@@ -57,7 +60,7 @@ public class Character_Move : MonoBehaviour
 
         Vector2 mouseDelta = Mouse.current.delta.ReadValue();
         cameraYaw += mouseDelta.x * mouseSensitivity;
-        cameraPitch = Mathf.Clamp(cameraPitch - (mouseDelta.y * mouseSensitivity), minPitch, maxPitch);
+        cameraPitch = Mathf.Clamp(cameraPitch - mouseDelta.y * mouseSensitivity, minPitch, maxPitch);
 
         transform.rotation = Quaternion.Euler(0f, cameraYaw, 0f);
         if (playerCamera != null)
@@ -85,12 +88,12 @@ public class Character_Move : MonoBehaviour
 
         Vector3 targetVelocity = moveDir * targetSpeed;
 
-        float currentTraction = isOnIce ? iceTraction : normalTraction;
+        float traction = isOnIce ? iceTraction : normalTraction;
 
         currentHorizontalVelocity = Vector3.Lerp(
             currentHorizontalVelocity,
             targetVelocity,
-            currentTraction * Time.deltaTime
+            traction * Time.deltaTime
         );
 
         if (controller.isGrounded)
@@ -105,10 +108,18 @@ public class Character_Move : MonoBehaviour
             verticalVelocity += gravity * Time.deltaTime;
         }
 
-        Vector3 finalMove = currentHorizontalVelocity;
+        // ⭐ รวมแรงผลักเข้าไป
+        Vector3 finalMove = currentHorizontalVelocity + externalForce;
         finalMove.y = verticalVelocity;
 
         controller.Move(finalMove * Time.deltaTime);
+
+        // ⭐ ค่อย ๆ ลดแรงผลัก
+        externalForce = Vector3.Lerp(
+            externalForce,
+            Vector3.zero,
+            knockbackDecay * Time.deltaTime
+        );
     }
 
     void CheckGroundType()
@@ -121,7 +132,13 @@ public class Character_Move : MonoBehaviour
             isOnIce = false;
     }
 
-    // ⭐⭐⭐ ระบบ Respawn ⭐⭐⭐
+    // ⭐⭐⭐ ฟังก์ชันรับแรงผลัก ⭐⭐⭐
+    public void ApplyKnockback(Vector3 force)
+    {
+        externalForce = force;
+    }
+
+    // ⭐⭐⭐ Respawn ⭐⭐⭐
     void Respawn()
     {
         if (respawnPoint == null)
@@ -130,17 +147,15 @@ public class Character_Move : MonoBehaviour
             return;
         }
 
-        // ปิด controller ชั่วคราวก่อนย้ายตำแหน่ง
         controller.enabled = false;
 
         transform.position = respawnPoint.position;
         transform.rotation = respawnPoint.rotation;
 
-        // รีเซตความเร็วทั้งหมด
         currentHorizontalVelocity = Vector3.zero;
         verticalVelocity = 0f;
+        externalForce = Vector3.zero;
 
         controller.enabled = true;
     }
-
 }
