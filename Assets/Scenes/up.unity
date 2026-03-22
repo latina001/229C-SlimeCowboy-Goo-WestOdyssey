@@ -468,8 +468,8 @@ Transform:
   m_GameObject: {fileID: 593489277}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23301807, y: -0.012900025, z: 0.003023304, w: 0.9723821}
-  m_LocalPosition: {x: -0.08119556, y: 1.4841812, z: -1.9034818}
-  m_LocalScale: {x: 0.40303212, y: 0.40303206, z: 0.40303206}
+  m_LocalPosition: {x: -0.06715393, y: 1.2275131, z: -1.5743015}
+  m_LocalScale: {x: 0.33333334, y: 0.33333337, z: 0.33333334}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1207169768}
@@ -989,15 +989,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9f436ff75e5fb3b40b59577c58fa4b64, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.4811924
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f436ff75e5fb3b40b59577c58fa4b64, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.4811924
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f436ff75e5fb3b40b59577c58fa4b64, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.4811924
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9f436ff75e5fb3b40b59577c58fa4b64, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1039,6 +1039,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f436ff75e5fb3b40b59577c58fa4b64, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f436ff75e5fb3b40b59577c58fa4b64, type: 3}
       propertyPath: m_Name
       value: Fast Run (2)
@@ -1059,6 +1063,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 6d12252399e5e274c8f4ce43c867ddc5, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 9f436ff75e5fb3b40b59577c58fa4b64, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1100,8 +1108,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character_Move
   moveSpeed: 6
   sprintMultiplier: 2
+  normalTraction: 12
+  iceTraction: 2
+  isOnIce: 1
   gravity: -25
   jumpHeight: 4
+  coyoteTime: 0.15
   playerCamera: {fileID: 593489281}
   mouseSensitivity: 0.1
   smoothTime: 0.05
