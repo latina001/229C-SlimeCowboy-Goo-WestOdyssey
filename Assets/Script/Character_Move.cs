@@ -69,7 +69,10 @@ public class Character_Move : MonoBehaviour
             isOnIce = false;
         }
     }
-
+    public void Launch(float force)
+    {
+        verticalVelocity = force;
+    }
     void LookSmooth()
     {
         Vector2 mouseDelta = Mouse.current.delta.ReadValue();
