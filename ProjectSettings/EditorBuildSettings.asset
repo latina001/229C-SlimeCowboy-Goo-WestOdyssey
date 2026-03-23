@@ -5,15 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Sllimecowboy/Scenes/Main Menu.unity
-    guid: 4224d48bb3164f241a5648487cb129f0
-  - enabled: 1
-    path: Assets/Sllimecowboy/Scenes/up.unity
-    guid: 0285dc999a1e3f243b3f8ac959926b0a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
