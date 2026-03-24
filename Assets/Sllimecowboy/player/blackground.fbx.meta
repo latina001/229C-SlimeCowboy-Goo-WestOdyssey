@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6fa9b46a1d123854f89b80c3c025bd57
+guid: f2292ecdb80a6494b9a895b51702851f
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -83,12 +83,7 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton:
-    - name: _edit-model(Clone)
-      parentName: 
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
-      scale: {x: 100, y: 100, z: 100}
+    skeleton: []
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
