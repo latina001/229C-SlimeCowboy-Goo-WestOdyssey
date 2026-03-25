@@ -1630,7 +1630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 847420258}
   - component: {fileID: 847420257}
-  - component: {fileID: 847420256}
+  - component: {fileID: 847420259}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -1638,18 +1638,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!75 &847420256
-ConstantForce:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847420255}
-  m_Enabled: 1
-  m_Force: {x: 0, y: 0, z: 0}
-  m_RelativeForce: {x: 0, y: 0, z: 0}
-  m_Torque: {x: 0, y: 0.1, z: 0}
-  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!54 &847420257
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1694,6 +1682,21 @@ Transform:
   - {fileID: 660966219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &847420259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847420255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d6083af08278764bb4cfa7f3f23dbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pusher
+  rotationAxis: {x: 0, y: 1, z: 0}
+  rotationSpeed: 120
+  pushForce: 0
 --- !u!1 &876177084
 GameObject:
   m_ObjectHideFlags: 0
