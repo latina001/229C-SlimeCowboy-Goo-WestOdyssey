@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     {
         panel.SetActive(false);
     }
+
     public void StartGame()
     {
         SceneManager.LoadScene("up");

@@ -2642,7 +2642,7 @@ GameObject:
   - component: {fileID: 1091961628}
   - component: {fileID: 1091961627}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Setting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4573,9 +4573,9 @@ SceneRoots:
   - {fileID: 559265063}
   - {fileID: 1303078998}
   - {fileID: 410691910}
-  - {fileID: 1715453963}
   - {fileID: 847420258}
   - {fileID: 1658360282}
   - {fileID: 683519600}
   - {fileID: 1050884262}
   - {fileID: 86011630}
+  - {fileID: 1715453963}
