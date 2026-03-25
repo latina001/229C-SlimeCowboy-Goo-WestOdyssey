@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ButtonSound : MonoBehaviour
 {
@@ -6,6 +6,9 @@ public class ButtonSound : MonoBehaviour
 
     public void PlayClick()
     {
+        float sfxVol = PlayerPrefs.GetFloat("sfxVolume", 1f);
+
+        audioSource.volume = sfxVol;
         audioSource.Play();
     }
 }
