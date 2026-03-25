@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
-        // 🎯 เริ่มเกม = เมาส์ล็อก
+        //  เริ่มเกม = เมาส์ล็อก
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        // ⏸️ กด ESC เพื่อ Pause
+        // กด ESC เพื่อ Pause
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             TogglePause();
@@ -33,10 +33,10 @@ public class PauseMenu : MonoBehaviour
 
         pausePanel.SetActive(isPaused);
 
-        // ⏸️ หยุดเวลา
+        //  หยุดเวลา
         Time.timeScale = isPaused ? 0f : 1f;
 
-        // 🖱️ เมาส์
+        //  เมาส์
         if (isPaused)
         {
             Cursor.lockState = CursorLockMode.None;
@@ -65,5 +65,9 @@ public class PauseMenu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+    public void ReGame()
+    {
+        SceneManager.LoadScene("up");
     }
 }
