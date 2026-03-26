@@ -6,8 +6,8 @@ public class CheckpointZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Character_Move player =
-                other.GetComponent<Character_Move>();
+            Character_Move_Physics player =
+                other.GetComponent<Character_Move_Physics>();
 
             if (player != null)
             {
