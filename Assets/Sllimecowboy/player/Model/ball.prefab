@@ -69,7 +69,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 707e34efdc695a44db17e1686d654a61, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,8 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b870ad5e2b74a7c43ae3eab7ca25b04c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBehavior
-  dragCoeff: 0.2
-  knockbackForce: 20
+  dragCoeff: 0.05
   lifeTime: 5
 --- !u!54 &6580337078740935580
 Rigidbody:

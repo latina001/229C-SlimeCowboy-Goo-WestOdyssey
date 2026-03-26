@@ -3,25 +3,27 @@
 public class JumpPad : MonoBehaviour
 {
     [Header("JumpPad Settings")]
-    public float desiredAcceleration = 18f; // ความเร่งที่ต้องการให้ผู้เล่นโดน
-    public float upwardFactor = 1f;         // เพิ่มแกน Y ให้เด้งสูง
+    [SerializeField] float targetJumpHeight = 5f; // กำหนดความสูงที่ต้องการให้เด้งขึ้นไป (เมตร)
+    [SerializeField] float gravityValue = 30f;    // ค่า gravity ที่สอดคล้องกับสคริปต์ Character_Move
 
     private void OnTriggerEnter(Collider other)
     {
-        Rigidbody playerRb = other.attachedRigidbody;
-        if (playerRb == null) return;
+        Character_Move player = other.GetComponent<Character_Move>();
 
-        // ===============================
-        //  ฟิสิกส์ตรงตามสูตร
-        // ===============================
+        if (player != null)
+        {
+            // ==========================================
+            // ⭐ การประยุกต์ใช้ฟิสิกส์: สูตรการเคลื่อนที่ (Kinematics)
+            // v^2 = u^2 + 2as -> u = sqrt(2gh)
+            // เพื่อคำนวณหาความเร็วต้น (Launch Force) ที่ต้องใช้
+            // ==========================================
 
-        // 1️ ทิศทางเด้งขึ้น
-        Vector3 direction = Vector3.up * upwardFactor;
+            float calculatedLaunchForce = Mathf.Sqrt(targetJumpHeight * 2f * gravityValue);
 
-        // 2️ F = m * a → แปลงเป็น Impulse
-        Vector3 impulse = direction.normalized * desiredAcceleration * playerRb.mass;
+            // ส่งค่าที่คำนวณได้จากสูตรไปยังตัวละคร
+            player.Launch(calculatedLaunchForce);
 
-        // 3️ ใช้ AddForce แบบ Impulse
-        playerRb.AddForce(impulse, ForceMode.Impulse);
+            Debug.Log($"Jump Pad Calculated Force: {calculatedLaunchForce} for Height: {targetJumpHeight}");
+        }
     }
 }

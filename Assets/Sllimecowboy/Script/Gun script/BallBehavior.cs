@@ -23,13 +23,17 @@ public class BallBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 💨 แรงต้านอากาศ
-        rb.AddForce(-rb.linearVelocity * dragCoeff);
+       
+           
+            float speed = rb.linearVelocity.magnitude;
+            Vector3 dragForce = -rb.linearVelocity.normalized * (dragCoeff * speed * speed);
 
-        // ⏱️ อายุลูก
-        timer -= Time.fixedDeltaTime;
-        if (timer <= 0f)
-            ReturnToPool();
+            rb.AddForce(dragForce); 
+
+           
+            timer -= Time.fixedDeltaTime;
+            if (timer <= 0f) ReturnToPool();
+        
     }
 
     void OnCollisionEnter(Collision col)
