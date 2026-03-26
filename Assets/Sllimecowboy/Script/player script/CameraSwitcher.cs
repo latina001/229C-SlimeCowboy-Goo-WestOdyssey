@@ -1,17 +1,16 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; // ต้องมี Namespace นี้
 
 public class CameraSwitcher : MonoBehaviour
 {
     [Header("Camera Setup")]
-    [SerializeField] Camera mainCamera;   // กล้องหลัก (FPS/Third Person)
-    [SerializeField] Camera subCamera;    // กล้องรอง (เช่น มุมกว้าง หรือ กล้องวงจรปิด)
+    [SerializeField] Camera mainCamera;
+    [SerializeField] Camera subCamera;
 
     private bool isMainCameraActive = true;
 
     void Start()
     {
-        // เริ่มต้น: เปิดกล้องหลัก ปิดกล้องรอง
         if (mainCamera != null && subCamera != null)
         {
             mainCamera.enabled = true;
@@ -21,7 +20,8 @@ public class CameraSwitcher : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        
+        if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
         {
             ToggleCamera();
         }
