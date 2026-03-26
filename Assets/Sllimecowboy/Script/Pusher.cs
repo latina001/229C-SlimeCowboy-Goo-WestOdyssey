@@ -1,40 +1,44 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Pusher : MonoBehaviour
 {
     [Header("Rotation")]
-    [SerializeField] private Vector3 rotationAxis = Vector3.right; // แกนหมุน
-    [SerializeField] private float angularSpeed = 120f;            // ความเร็วเชิงมุม (deg/sec)
+    public Vector3 rotationAxis = Vector3.right;
+    public float angularSpeed = 120f;
 
     [Header("Push Settings")]
-    [SerializeField] private float desiredAcceleration = 15f;     // ความเร่งที่อยากให้ผู้เล่นโดน (m/s²)
+    public float pushStrength = 10f;
+    public float upwardForce = 2f;
 
-    void Update()
+    Rigidbody rb;
+
+    void Start()
     {
-        //หมุนๆยาวๆ
-        transform.Rotate(rotationAxis * angularSpeed * Time.deltaTime);
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    void FixedUpdate()
     {
-        if (hit.collider.CompareTag("Player"))
-        {
-            Rigidbody playerRb = hit.collider.attachedRigidbody;
-            if (playerRb == null) return;
+        Quaternion deltaRotation = Quaternion.Euler(rotationAxis * angularSpeed * Time.fixedDeltaTime);
+        rb.MoveRotation(rb.rotation * deltaRotation);
+    }
 
-            // ============================
-            //        ฟิสิกส์ตรงตามสูตร
-            // ============================
+    void OnCollisionEnter(Collision collision)
+    {
+        Rigidbody playerRb = collision.rigidbody;
+        if (playerRb == null || !playerRb.CompareTag("Player")) return;
 
-            // 1️ หา Vector จากแท่ง → ผู้เล่น
-            Vector3 pushDirection = (hit.transform.position - transform.position).normalized;
+        Vector3 pushDirection = (playerRb.transform.position - transform.position);
+        pushDirection.y = 0;
+        pushDirection.Normalize();
 
-            // 2 F = m * a  และเพิ่ม D เพื่อจะได้มีทิศทางที่แนนนอน
-            float playerMass = playerRb.mass;
-            Vector3 force = pushDirection * desiredAcceleration * playerMass;
+        Vector3 finalVelocity = (pushDirection * pushStrength) + (Vector3.up * upwardForce);
 
-            // 3 ใช้ AddForce แบบ Impulse ทำให้เกิด Δv ทันที
-            playerRb.AddForce(force, ForceMode.Impulse);
-        }
+        // เปลี่ยนเป็น linearVelocity เพื่อหยุดแรงเดิมก่อนเด้งออก
+        playerRb.linearVelocity = Vector3.zero;
+        playerRb.AddForce(finalVelocity, ForceMode.VelocityChange);
     }
 }
