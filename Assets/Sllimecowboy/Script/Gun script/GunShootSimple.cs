@@ -18,18 +18,20 @@ public class GunShootSimple : MonoBehaviour
 
     void Shoot()
     {
-        // ⭐ สร้างลูกกระสุน
-        GameObject bullet =
-            Instantiate(bulletPrefab,
-                        shootPoint.position,
-                        shootPoint.rotation);
-
-        // ⭐ ยิงออกไปข้างหน้า
+        GameObject bullet = Instantiate(bulletPrefab, shootPoint.position, shootPoint.rotation);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
+
         if (rb != null)
         {
-            rb.AddForce(shootPoint.forward * shootForce,
-                        ForceMode.Impulse);
+            // ⭐ แทนที่จะใส่แรงตรงๆ เราจะคำนวณจากความเร่งที่ต้องการ (a) และมวล (m)
+            // สมมติเราต้องการให้กระสุนมีความเร่งเริ่มต้นสูงมาก
+            float targetAcceleration = 50f;
+
+            // ใช้กฎข้อที่ 2 ของนิวตัน: F = m * a
+            Vector3 forceVector = shootPoint.forward * (rb.mass * targetAcceleration);
+
+            // ยิงออกไปโดยใช้แรงที่คำนวณมา
+            rb.AddForce(forceVector, ForceMode.Impulse);
         }
     }
 }
