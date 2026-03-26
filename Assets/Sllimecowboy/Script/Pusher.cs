@@ -4,32 +4,37 @@ public class Pusher : MonoBehaviour
 {
     [Header("Rotation")]
     [SerializeField] private Vector3 rotationAxis = Vector3.right; // แกนหมุน
-    [SerializeField] private float rotationSpeed = 120f;        // ความเร็วหมุน
+    [SerializeField] private float angularSpeed = 120f;            // ความเร็วเชิงมุม (deg/sec)
 
     [Header("Push Settings")]
-    [SerializeField] private float pushForce = 12f;             // แรงผลัก
+    [SerializeField] private float desiredAcceleration = 15f;     // ความเร่งที่อยากให้ผู้เล่นโดน (m/s²)
 
     void Update()
     {
-        // หมุนตลอดเวลา
-        transform.Rotate(rotationAxis * rotationSpeed * Time.deltaTime);
+        //หมุนๆยาวๆ
+        transform.Rotate(rotationAxis * angularSpeed * Time.deltaTime);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.collider.CompareTag("Player"))
         {
-            Character_Move player = hit.collider.GetComponent<Character_Move>();
+            Rigidbody playerRb = hit.collider.attachedRigidbody;
+            if (playerRb == null) return;
 
-            if (player != null)
-            {
-                //  ทิศทางผลักออกจากแท่ง
-                Vector3 pushDir = (hit.transform.position - transform.position).normalized;
+            // ============================
+            //        ฟิสิกส์ตรงตามสูตร
+            // ============================
 
-                pushDir.y = 0.5f; // ดันขึ้นเล็กน้อยให้กระเด็น
+            // 1️ หา Vector จากแท่ง → ผู้เล่น
+            Vector3 pushDirection = (hit.transform.position - transform.position).normalized;
 
-                player.ApplyKnockback(pushDir * pushForce);
-            }
+            // 2 F = m * a  และเพิ่ม D เพื่อจะได้มีทิศทางที่แนนนอน
+            float playerMass = playerRb.mass;
+            Vector3 force = pushDirection * desiredAcceleration * playerMass;
+
+            // 3 ใช้ AddForce แบบ Impulse ทำให้เกิด Δv ทันที
+            playerRb.AddForce(force, ForceMode.Impulse);
         }
     }
 }
