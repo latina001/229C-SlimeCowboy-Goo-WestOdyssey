@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b688a0476ddd1f74a8e22e5608f2dcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveUpConstant
-  speed: 40
+  speed: 50
 --- !u!1001 &68600665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8914,7 +8914,7 @@ GameObject:
   - component: {fileID: 1545863212}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Ob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8928,8 +8928,8 @@ Transform:
   m_GameObject: {fileID: 1545863210}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.00000047776837, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14999892, y: -0.4693313, z: -1.0500165}
-  m_LocalScale: {x: 4.0896, y: 0.06325221, z: 1}
+  m_LocalPosition: {x: -0.07, y: -0.4693313, z: -1.06}
+  m_LocalScale: {x: 1.4350393, y: 0.06325221, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1561423295}
@@ -9198,9 +9198,10 @@ GameObject:
   - component: {fileID: 1561423293}
   - component: {fileID: 1561423292}
   - component: {fileID: 1561423291}
+  - component: {fileID: 1561423296}
   m_Layer: 0
   m_Name: obstacle lv2-1
-  m_TagString: Untagged
+  m_TagString: Ob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9319,14 +9320,26 @@ Transform:
   m_GameObject: {fileID: 1561423290}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.0082959235, z: -0, w: 0.99996567}
-  m_LocalPosition: {x: 23.1, y: 1.36, z: -29.82}
-  m_LocalScale: {x: 8.774436, y: 23.93079, z: 1}
+  m_LocalPosition: {x: 23.1, y: 0.33, z: -29.82}
+  m_LocalScale: {x: 8.774436, y: 18.290781, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1672057820}
   - {fileID: 1545863211}
   m_Father: {fileID: 749246902606508118}
   m_LocalEulerAnglesHint: {x: 0, y: 55.918, z: 0}
+--- !u!114 &1561423296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561423290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e358494e5828f4baf8c361e86b97c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RespawnObject
 --- !u!1 &1575640679
 GameObject:
   m_ObjectHideFlags: 0
@@ -10066,7 +10079,7 @@ GameObject:
   - component: {fileID: 1672057821}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10080,8 +10093,8 @@ Transform:
   m_GameObject: {fileID: 1672057819}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.00000047683716, z: 0, w: 1}
-  m_LocalPosition: {x: -0.14962134, y: -0.4693313, z: 0.9408517}
-  m_LocalScale: {x: 4.0896, y: 0.06325221, z: 1}
+  m_LocalPosition: {x: -0.067, y: -0.4693313, z: 0.93}
+  m_LocalScale: {x: 1.4350393, y: 0.06325221, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1561423295}
@@ -16115,6 +16128,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3534168095435480651, guid: 7f3bbec67a2ccd145ad21f96daa35019, type: 3}
     - {fileID: 372557169121459153, guid: 7f3bbec67a2ccd145ad21f96daa35019, type: 3}
+    - {fileID: 7143828407944118634, guid: 7f3bbec67a2ccd145ad21f96daa35019, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3bbec67a2ccd145ad21f96daa35019, type: 3}

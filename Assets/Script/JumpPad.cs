@@ -13,14 +13,14 @@ public class JumpPad : MonoBehaviour
         if (player != null)
         {
             // ==========================================
-            // ⭐ การประยุกต์ใช้ฟิสิกส์: สูตรการเคลื่อนที่ (Kinematics)
+            //  การประยุกต์ใช้ฟิสิกส์: สูตรการเคลื่อนที่ (Kinematics)
             // v^2 = u^2 + 2as -> u = sqrt(2gh)
             // เพื่อคำนวณหาความเร็วต้น (Launch Force) ที่ต้องใช้
             // ==========================================
 
             float calculatedLaunchForce = Mathf.Sqrt(targetJumpHeight * 2f * gravityValue);
 
-            // ส่งค่าที่คำนวณได้จากสูตรไปยังตัวละคร
+            // ส่งค่าที่คำนวณได้จากสูตรไปยังplayer
             player.Launch(calculatedLaunchForce);
 
             Debug.Log($"Jump Pad Calculated Force: {calculatedLaunchForce} for Height: {targetJumpHeight}");

@@ -2,7 +2,7 @@
 
 public class MoveUpConstant : MonoBehaviour
 {
-    public float speed = 2f;
+    public float speed = 50f;
 
     void Start()
     {

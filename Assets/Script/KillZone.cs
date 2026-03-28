@@ -14,5 +14,13 @@ public class KillZone : MonoBehaviour
                 player.Respawn();
             }
         }
+        if (other.CompareTag("Ob"))
+        {
+            RespawnObject obj = other.GetComponent<RespawnObject>();
+            if (obj != null)
+            {
+                obj.Respawn();
+            }
+        }
     }
 }
